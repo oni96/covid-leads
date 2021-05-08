@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import axios from "axios";
 import OxygenLead from "./OxygenLead";
-import OxygenSearch from "./OxygenSearch";
 import { Collapse } from "react-bootstrap";
 
 export default class OxygenList extends Component {
   state = { oxygenLeads: [], searchResults: [], open: false };
   getOxygenLeads = () => {
     axios
-      .get("http://192.168.0.105:5000/oxygen")
+      .get("/oxygen")
       .then((data) => {
         this.setState({ oxygenLeads: [...data.data] });
         this.setState({ searchResults: [...data.data] });
@@ -44,14 +43,14 @@ export default class OxygenList extends Component {
   componentDidUpdate(prevProps) {
     console.log(prevProps, this.props);
     if (
-      prevProps.search.searchBy != this.props.search.searchBy ||
-      prevProps.search.searchParam != this.props.search.searchParam
+      prevProps.search.searchBy !== this.props.search.searchBy ||
+      prevProps.search.searchParam !== this.props.search.searchParam
     ) {
       let searchBy = this.props.search.searchBy;
       let searchParam = this.props.search.searchParam;
       console.log("componentDidUpdate", searchBy, searchParam);
 
-      let a4 = this.state.oxygenLeads.filter((l) => l[searchBy] == searchParam);
+      let a4 = this.state.oxygenLeads.filter((l) => l[searchBy] === searchParam);
 
       this.setState({ searchResults: a4 });
       console.log(a4);

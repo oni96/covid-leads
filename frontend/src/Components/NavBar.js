@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Button,
   Form,
   FormControl,
   Nav,
@@ -29,6 +28,7 @@ export default function NavBar(props) {
           width="30"
           height="30"
           className="d-inline-block align-top"
+          alt="null"
         ></img>
         COVID Something
       </Navbar.Brand>

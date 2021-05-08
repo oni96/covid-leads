@@ -12,7 +12,7 @@ export default class OxygenLead extends Component {
 
     this.setState({ verified: true });
     axios
-      .post("http://192.168.0.105:5000/oxygen/verifyOxygenLead", {
+      .post("/oxygen/verifyOxygenLead", {
         id: this.props.id,
       })
       .then(console.log("Verified"))
