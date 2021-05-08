@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"cd backend && npx ts-node app.ts\" \"cd frontend && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd backend && ts-node app.ts",
+    "start": "cd backend && ls -l && npx ts-node app.ts",
     "build-front-end": "cd frontend && npm run build"
   },
   "keywords": [],
