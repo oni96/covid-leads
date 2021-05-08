@@ -19,6 +19,6 @@ app.use("/oxygen", oxygenLeads);
 
 app.use(express.static(staticPage))
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log("App is started");
 });
