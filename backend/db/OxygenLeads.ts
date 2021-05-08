@@ -14,7 +14,7 @@ export const insertNewOxygenLead = async (values: any) => {
 
     return values;
   } else {
-    return exists;
+    return {exists: true, data: exists};
   }
 };
 

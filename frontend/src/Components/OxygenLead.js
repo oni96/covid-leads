@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Button, Col, Container, Jumbotron, Row } from "react-bootstrap";
 
 export default class OxygenLead extends Component {
-  state = { verified: false };
+  state = { verified: false, timenow: new Date() };
   verifyLead(e) {
     const getLastArr =
       JSON.parse(localStorage.getItem("verifiedOxygen")) == null
@@ -23,13 +23,26 @@ export default class OxygenLead extends Component {
       "verifiedOxygen",
       JSON.stringify([...getLastArr, this.props.id.toString()])
     );
+
+    this.setState({last_verified: new Date()})
   }
 
-  reportLead() {
-    console.log("reported");
+  getTime() {
+  
+    return new Date().getTime();
   }
+
+  componentWillUnmount(){
+    clearInterval()
+  }
+
 
   componentDidMount() {
+    this.setState({last_verified: this.props.last_verified})
+    setInterval(() => {
+      console.log("Timer called");
+      this.setState({ timenow: this.getTime() });
+    }, 60000);
     const getLastArr =
       JSON.parse(localStorage.getItem("verifiedOxygen")) == null
         ? []
@@ -78,8 +91,8 @@ export default class OxygenLead extends Component {
           Last verified{" "}
           <strong>
             {Math.ceil(
-              (new Date().getTime() -
-                new Date(this.props.last_verified).getTime()) /
+              (this.state.timenow -
+                new Date(this.state.last_verified).getTime()) /
                 (1000 * 60)
             )}{" "}
             mins ago
@@ -88,8 +101,10 @@ export default class OxygenLead extends Component {
 
         {this.state.verified ? (
           <p>
-          You and <strong>{this.props.verified_by}</strong> other user(s) have verified. <br/>Thank you for helping us!
-        </p>
+            You and <strong>{this.props.verified_by}</strong> other user(s) have
+            verified. <br />
+            Thank you for helping us!
+          </p>
         ) : (
           <p>
             Verified by <strong>{this.props.verified_by}</strong> user(s)
@@ -109,11 +124,7 @@ export default class OxygenLead extends Component {
             </Col>
             <Col>
               {" "}
-              <Button
-                variant="danger"
-                style={{ float: "right" }}
-                onClick={this.reportLead()}
-              >
+              <Button variant="danger" style={{ float: "right" }}>
                 Report
               </Button>
             </Col>

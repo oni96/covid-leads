@@ -27,7 +27,10 @@ router.post("/addOxygenLead", async (req, res) => {
   ];
 
   const response = await insertNewOxygenLead(array);
+  if(response.exists == true)
   res.send(response);
+  else
+  res.send({inserted: true})
 });
 
 router.post("/verifyOxygenLead", (req, res) => {
